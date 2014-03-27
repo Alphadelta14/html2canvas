@@ -19,6 +19,7 @@ window.html2canvas = function(elements, opts) {
     ignoreElements: "IFRAME|OBJECT|PARAM",
     useOverflow: true,
     letterRendering: false,
+    parsePseudoElements: true,
     chinese: false,
     async: false, // If true, parsing will not block, but if the user scrolls during parse the image can get weird
 
