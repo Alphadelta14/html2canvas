@@ -463,7 +463,11 @@ _html2canvas.Parse = function (images, options, cb) {
 
   function setZ(element, stack, parentStack){
     var newContext,
-    isPositioned = stack.cssPosition !== 'static',
+    isPositioned = stack.cssPosition !== 'static' &&
+      (getCSS(element, 'left') !== 'auto' ||
+       getCSS(element, 'top') !== 'auto' ||
+       getCSS(element, 'right') !== 'auto' ||
+       getCSS(element, 'bottom') !== 'auto'),
     zIndex = isPositioned ? getCSS(element, 'zIndex') : 'auto',
     opacity = getCSS(element, 'opacity'),
     isFloated = getCSS(element, 'cssFloat') !== 'none';
