@@ -383,7 +383,9 @@ _html2canvas.Util.Extend = function (options, defaults) {
 _html2canvas.Util.Children = function( elem ) {
   var children;
   try {
-    children = (elem.nodeName && elem.nodeName.toUpperCase() === "IFRAME") ? elem.contentDocument || elem.contentWindow.document : (function(array) {
+    elem = (elem.nodeName && elem.nodeName.toUpperCase() === "IFRAME") ?
+      elem.contentDocument || elem.contentWindow.document : elem;
+    children = (function(array) {
       var ret = [];
       if (array !== null) {
         (function(first, second ) {
@@ -1496,7 +1498,11 @@ _html2canvas.Parse = function (images, options, cb) {
 
   function setZ(element, stack, parentStack){
     var newContext,
-    isPositioned = stack.cssPosition !== 'static',
+    isPositioned = stack.cssPosition !== 'static' &&
+      (getCSS(element, 'left') !== 'auto' ||
+       getCSS(element, 'top') !== 'auto' ||
+       getCSS(element, 'right') !== 'auto' ||
+       getCSS(element, 'bottom') !== 'auto'),
     zIndex = isPositioned ? getCSS(element, 'zIndex') : 'auto',
     opacity = getCSS(element, 'opacity'),
     isFloated = getCSS(element, 'cssFloat') !== 'none';

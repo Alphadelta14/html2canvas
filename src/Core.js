@@ -374,7 +374,9 @@ _html2canvas.Util.Extend = function (options, defaults) {
 _html2canvas.Util.Children = function( elem ) {
   var children;
   try {
-    children = (elem.nodeName && elem.nodeName.toUpperCase() === "IFRAME") ? elem.contentDocument || elem.contentWindow.document : (function(array) {
+    elem = (elem.nodeName && elem.nodeName.toUpperCase() === "IFRAME") ?
+      elem.contentDocument || elem.contentWindow.document : elem;
+    children = (function(array) {
       var ret = [];
       if (array !== null) {
         (function(first, second ) {
